@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript CRUD</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; }
+        .container { width: 90%; max-width: 600px; padding: 20px; margin-top: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); }
+        input, button { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
+        button { background: #28a745; color: white; border: none; cursor: pointer; }
+        button:hover { background: #218838; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        th { background: #f4f4f4; }
+        .edit-btn, .delete-btn { padding: 5px 10px; border-radius: 5px; cursor: pointer; color: white; }
+        .edit-btn { background: #007bff; }
+        .delete-btn { background: #dc3545; }
+        .edit-btn:hover { background: #0056b3; }
+        .delete-btn:hover { background: #c82333; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 id="form-title">Enter Your Details</h2>
+    <input type="hidden" id="editIndex">
+    <input type="text" id="name" placeholder="Enter Name" required>
+    <input type="text" id="title" placeholder="Enter Title" required>
+    <button onclick="submitData()" id="submit-btn">Submit</button>
+    <button onclick="cancelEdit()" id="cancel-btn" style="display: none;">Cancel</button>
+</div>
+
+<div class="container">
+    <h2>Submitted Data</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Title</th>
+            <th>Actions</th>
+        </tr>
+        <tbody id="data-table"></tbody>
+    </table>
+</div>
+
+<script>
+    // Load Data on Page Load
+    document.addEventListener("DOMContentLoaded", loadData);
+
+    function loadData() {
+        let data = JSON.parse(localStorage.getItem("dataCollection")) || [];
+        let table = document.getElementById("data-table");
+        table.innerHTML = "";
+
+        data.forEach((item, index) => {
+            let row = `<tr>
+                <td>${index + 1}</td>
+                <td>${item.name}</td>
+                <td>${item.title}</td>
+                <td>
+                    <button class="edit-btn" onclick="editData(${index})">Edit</button>
+                    <button class="delete-btn" onclick="deleteData(${index})">Delete</button>
+                </td>
+            </tr>`;
+            table.innerHTML += row;
+        });
+    }
+
+    function submitData() {
+        let name = document.getElementById("name").value.trim();
+        let title = document.getElementById("title").value.trim();
+        let editIndex = document.getElementById("editIndex").value;
+
+        if (!name || !title) {
+            alert("Please enter both name and title.");
+            return;
+        }
+
+        let data = JSON.parse(localStorage.getItem("dataCollection")) || [];
+
+        if (editIndex === "") {
+            // Insert new data
+            data.push({ name, title });
+        } else {
+            // Update existing data
+            data[editIndex] = { name, title };
+        }
+
+        localStorage.setItem("dataCollection", JSON.stringify(data));
+
+        resetForm();
+        loadData();
+    }
+
+    function editData(index) {
+        let data = JSON.parse(localStorage.getItem("dataCollection")) || [];
+        document.getElementById("name").value = data[index].name;
+        document.getElementById("title").value = data[index].title;
+        document.getElementById("editIndex").value = index;
+        document.getElementById("submit-btn").textContent = "Update";
+        document.getElementById("cancel-btn").style.display = "block";
+        document.getElementById("form-title").textContent = "Edit Data";
+    }
+
+    function deleteData(index) {
+        if (confirm("Are you sure you want to delete this record?")) {
+            let data = JSON.parse(localStorage.getItem("dataCollection")) || [];
+            data.splice(index, 1);
+            localStorage.setItem("dataCollection", JSON.stringify(data));
+            loadData();
+        }
+    }
+
+    function cancelEdit() {
+        resetForm();
+    }
+
+    function resetForm() {
+        document.getElementById("name").value = "";
+        document.getElementById("title").value = "";
+        document.getElementById("editIndex").value = "";
+        document.getElementById("submit-btn").textContent = "Submit";
+        document.getElementById("cancel-btn").style.display = "none";
+        document.getElementById("form-title").textContent = "Enter Your Details";
+    }
+</script>
+
+</body>
+</html>
