@@ -187,6 +187,27 @@
         document.getElementById("cancel-btn").style.display = "none";
         document.getElementById("form-title").textContent = "Enter Your Details";
     }
+
+
+
+
+// Disable right-click
+document.addEventListener("contextmenu", (event) => event.preventDefault());
+
+// Disable F12, Ctrl+Shift+I, Ctrl+Shift+C, and Ctrl+U
+document.addEventListener("keydown", (event) => {
+    if (
+        event.key === "F12" ||
+        (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "C")) ||
+        (event.ctrlKey && event.key === "U")
+    ) {
+        event.preventDefault();
+    }
+});
+
+
+
+    
 </script>
 
 </body>
