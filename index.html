@@ -3,22 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript CRUD</title>
+    <title>baby</title>
     <style>
-        body { font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; }
-        .container { width: 90%; max-width: 600px; padding: 20px; margin-top: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); }
-        input, button { width: 580px; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
-        button { background: #28a745; color: white; border: none; cursor: pointer; width: 600px; }
-        button:hover { background: #218838; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
-        th { background: #f4f4f4; }
-        .edit-btn, .delete-btn { padding: 5px 10px; border-radius: 5px; cursor: pointer; color: white; }
+        body { 
+            font-family: Arial, sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            margin: 0; 
+            padding: 10px;
+        }
+    
+        .container { 
+            width: 100%; 
+            max-width: 600px; 
+            padding: 15px; 
+            margin-top: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+            box-sizing: border-box;
+        }
+    
+        input, button { 
+            width: 100%; 
+            padding: 10px; 
+            margin: 5px 0; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            box-sizing: border-box;
+        }
+    
+        button { 
+            background: #28a745; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+        }
+    
+        button:hover { 
+            background: #218838; 
+        }
+    
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 10px; 
+        }
+    
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 8px; 
+            text-align: center; 
+        }
+    
+        th { 
+            background: #f4f4f4; 
+        }
+    
+        .edit-btn, .delete-btn { 
+            padding: 5px 10px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            color: white; 
+            display: inline-block; 
+            text-align: center;
+        }
+    
         .edit-btn { background: #007bff; }
         .delete-btn { background: #dc3545; }
         .edit-btn:hover { background: #0056b3; }
         .delete-btn:hover { background: #c82333; }
+    
+        @media (max-width: 600px) {
+            body { padding: 5px; }
+            .container { padding: 10px; }
+            input, button { padding: 8px; font-size: 14px; }
+            table { font-size: 14px; }
+        }
     </style>
+    
 </head>
 <body>
 
